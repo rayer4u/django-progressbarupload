@@ -14,14 +14,16 @@ $(document).ready(function(){
           $('#progressBar').removeAttr('hidden');  // show progress bar if there are datas
           var progress = parseInt(data.uploaded, 10)/parseInt(data.length, 10)*100;
           $('#progressBar').attr('value', progress);
+          if (progress < 100)
+            window.setTimeout(update_progress_info, 20);
         }
         else {
-          $('#progressBar').attr('hidden', '');  // hide progress bar if no datas
+          //$('#progressBar').attr('hidden', '');  // hide progress bar if no datas
         }
-        window.setTimeout(update_progress_info, 200);
+        
       });
     }
-    window.setTimeout(update_progress_info, 200);
+    window.setTimeout(update_progress_info, 20);
     $.data(this, 'submitted', true); // mark form as submitted.
     return true;
   });

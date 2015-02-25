@@ -2,6 +2,43 @@
 django-progressbarupload
 ========================
 
+Fork for implement ajax style progressbar and some other feature
+1. If you want ajax style, define.
+    ```
+    PROGRESSBARUPLOAD_AJAX = True
+    ```
+2. Can override ajax post default callback function success/complete/error by define form data success/complete/error. in templates
+    ```
+    {% load progress_bar %}
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {% progress_bar_media %}
+        <script>
+        function fun_sucs(data) {
+            $('#result').append(JSON.stringify(data));
+        }
+        </script>
+    </head>
+
+    <body>
+      <form enctype="multipart/form-data" method="post" action="." data-success="fun_sucs">
+         {% csrf_token %}
+         {{ form }}
+         {% progress_bar %}
+         <input type="submit" />
+     </form>
+     <div id="result"></div>
+    </body>
+    </html>
+    ```
+    
+3. Normal style progressbar stop timeout when finished
+
+4. Some show/hide style
+
+
 [![Build Status](https://travis-ci.org/ouhouhsami/django-progressbarupload.png?branch=master)](https://travis-ci.org/ouhouhsami/django-progressbarupload)
 
 django-progressbarupload is a simple Django application that instantiates an HTML5 upload progress bar when the user submits a form with files (a form having basically FileField(s) and/or ImageField(s), and an enctype="multipart/form-data").

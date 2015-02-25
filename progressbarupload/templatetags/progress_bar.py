@@ -7,8 +7,6 @@ from django.core.urlresolvers import reverse
 
 from django.conf import settings
 
-PROGRESSBARUPLOAD_INCLUDE_JQUERY = getattr(settings,'PROGRESSBARUPLOAD_INCLUDE_JQUERY',True)
-
 register = template.Library()
 
 
@@ -22,8 +20,8 @@ def progress_bar():
     in js/progress_bar.js file.
     """
     progress_bar_tag = '<progress id="progressBar" ' \
-        'data-progress_bar_uuid="%s" style="width:100%%" value="0" max="100" ' \
-        'hidden></progress>' % (uuid.uuid4())
+        'data-progress_bar_uuid="%s" value="0" max="100" ' \
+        '></progress>' % (uuid.uuid4())
     upload_progress_url = '<script>upload_progress_url = "%s"</script>' \
         % (reverse('upload_progress'))
     return mark_safe(progress_bar_tag + upload_progress_url)
@@ -36,11 +34,14 @@ def progress_bar_media():
 
     return rendered script tag for javascript used by progress_bar
     """
-    if PROGRESSBARUPLOAD_INCLUDE_JQUERY:
+    if settings.PROGRESSBARUPLOAD_INCLUDE_JQUERY:
         js = ["http://code.jquery.com/jquery-1.8.3.min.js",]
     else:
         js = []
-    js.append("js/progress_bar.js")
-
+    if settings.PROGRESSBARUPLOAD_AJAX:
+        js.append("js/progress_bar_ajax.js")
+    else:
+        js.append("js/progress_bar.js")
+        
     m = Media(js=js)
     return m.render()

@@ -35,8 +35,14 @@ class ProgressBarUploadHandler(TemporaryFileUploadHandler):
         return raw_data
 
     def file_complete(self, file_size):
-        pass
+        if self.cache_key:
+            cache.set(self.cache_key, {
+                'length': file_size,
+                'uploaded': file_size     
+            })                   
+#         pass
 
     def upload_complete(self):
-        if self.cache_key:
-            cache.delete(self.cache_key)
+#         if self.cache_key:
+#             cache.delete(self.cache_key)
+        pass
