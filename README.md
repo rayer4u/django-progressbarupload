@@ -3,12 +3,16 @@ django-progressbarupload
 ========================
 
 Fork for implement ajax style progressbar and some other feature
+
 1. If you want ajax style, define.
+
     ```
     PROGRESSBARUPLOAD_AJAX = True
     ```
+
 2. Can override ajax post default callback function success/complete/error by define form data success/complete/error. in templates
-    ```
+
+```
     {% load progress_bar %}
 
     <!DOCTYPE html>
@@ -32,8 +36,8 @@ Fork for implement ajax style progressbar and some other feature
      <div id="result"></div>
     </body>
     </html>
-    ```
-    
+```
+
 3. Normal style progressbar stop timeout when finished
 
 4. Some show/hide style
